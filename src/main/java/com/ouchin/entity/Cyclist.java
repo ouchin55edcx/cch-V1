@@ -5,9 +5,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "cyclists")
+
 public class Cyclist {
 
     @Id
@@ -36,5 +38,15 @@ public class Cyclist {
     private String team;
 
 
+    @ManyToMany
+    @JoinTable(
+            name = "cyclist_competitions",
+            joinColumns = @JoinColumn(name = "cyclist_id"),
+            inverseJoinColumns = @JoinColumn(name = "competition_id")
+    )
+    private Set<Competition> competitions;
+
+    @OneToMany(mappedBy = "cyclist", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Result> results;
 
 }

@@ -22,5 +22,11 @@ public class Result {
     @Column(nullable = false)
     private Integer rank;
 
+    @ManyToOne
+    @JoinColumn(name = "cyclist_id", nullable = false)
+    private Cyclist cyclist;
 
+    @ManyToOne
+    @JoinColumn(name = "phase_id", nullable = false)
+    private Phase phase;
 }

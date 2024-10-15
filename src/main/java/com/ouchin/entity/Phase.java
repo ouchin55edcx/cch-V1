@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "phases")
@@ -37,6 +39,14 @@ public class Phase {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PhaseType type;
+
+    @ManyToOne
+    @JoinColumn(name = "competition_id", nullable = false)
+    private Competition competition;
+
+    @OneToMany(mappedBy = "phase", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Result> results;
+
 
 
 }

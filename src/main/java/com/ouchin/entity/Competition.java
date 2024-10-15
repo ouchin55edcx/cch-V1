@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "competitions")
@@ -30,6 +31,11 @@ public class Competition {
     @Column(nullable = false)
     private Duration duration;
 
+    @ManyToMany(mappedBy = "competitions")
+    private Set<Cyclist> cyclists;
+
+    @OneToMany(mappedBy = "competition", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Phase> phases;
 
 
 }
